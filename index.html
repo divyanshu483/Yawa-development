@@ -1,110 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YAWA Development</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YAWA Development</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background:#020617;
-      color:white;
-      overflow-x:hidden;
+body{
+  font-family:'Poppins',sans-serif;
+  background:#020617;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* Loader */
+#loader{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:#020617;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:99999;
+  transition:0.5s;
+}
+
+.spinner{
+  border:5px solid #1e293b;
+  border-top:5px solid #38bdf8;
+  border-radius:50%;
+  width:60px;height:60px;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg);}
+}
+
+#particles-js{
+  position:fixed;
+  width:100%;
+  height:100%;
+  z-index:-1;
+}
+
+/* Header */
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 40px;
+  background:rgba(2,6,23,0.7);
+  backdrop-filter:blur(10px);
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+
+header h1{color:#38bdf8;}
+
+nav a{
+  margin-left:20px;
+  text-decoration:none;
+  color:white;
+  font-weight:500;
+}
+
+nav a:hover{color:#38bdf8;}
+
+/* Hero */
+.hero{
+  text-align:center;
+  padding:120px 20px;
+}
+
+.hero h2{
+  font-size:40px;
+}
+
+.hero button{
+  margin-top:20px;
+  padding:14px 30px;
+  border:none;
+  background:#38bdf8;
+  color:black;
+  border-radius:30px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.hero button:hover{
+  transform:scale(1.05);
+}
+
+/* Services */
+.services{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:25px;
+  padding:60px 40px;
+}
+
+.card{
+  background:rgba(30,41,59,0.5);
+  padding:25px;
+  border-radius:15px;
+  cursor:pointer;
+  opacity:0;
+  transform:translateY(40px);
+  transition:0.4s;
+}
+
+.card:hover{
+  transform:translateY(-5px) scale(1.02);
+}
+
+.card.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* About */
+.about{
+  padding:80px 40px;
+  text-align:center;
+}
+
+.about p{
+  max-width:700px;
+  margin:auto;
+  opacity:0.8;
+}
+
+/* Popup */
+#popup{
+  position:fixed;
+  top:0;left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.7);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+.popup-box{
+  background:#1e293b;
+  padding:30px;
+  border-radius:15px;
+  text-align:center;
+  animation:pop 0.3s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(0.8);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+
+.popup-box button{
+  margin-top:15px;
+  padding:10px 20px;
+  border:none;
+  background:#38bdf8;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+/* Chat */
+.floating-btn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#38bdf8;
+  color:black;
+  padding:15px 20px;
+  border-radius:50px;
+  cursor:pointer;
+}
+
+#chatbot{
+  position:fixed;
+  bottom:90px;
+  right:20px;
+  width:260px;
+  background:#1e293b;
+  border-radius:10px;
+  padding:15px;
+  display:none;
+}
+
+/* Footer */
+footer{
+  text-align:center;
+  padding:20px;
+  opacity:0.7;
+}
+</style>
+</head>
+
+<body>
+
+<div id="loader"><div class="spinner"></div></div>
+<div id="particles-js"></div>
+
+<header>
+  <h1>YAWA Development</h1>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Build. Launch. Grow.</h2>
+  <p>Websites • Minecraft Servers • VPS • Domains</p>
+  <button onclick="joinDiscord()">Join Discord</button>
+</section>
+
+<section id="services" class="services">
+  <div class="card" onclick="openPopup()">🌐 Website<br>₹250 - ₹1000</div>
+  <div class="card" onclick="openPopup()">🎮 Minecraft<br>₹300</div>
+  <div class="card" onclick="openPopup()">⚙️ VPS<br>₹300</div>
+  <div class="card" onclick="openPopup()">🌍 Domain<br>₹75/year</div>
+</section>
+
+<section id="about" class="about">
+  <h2>About YAWA Development</h2>
+  <p>We provide affordable and professional digital services including websites, Minecraft setups, VPS, and domains.</p>
+</section>
+
+<!-- Popup -->
+<div id="popup">
+  <div class="popup-box">
+    <h3>Continue on Discord</h3>
+    <p>Click below to proceed</p>
+    <button onclick="joinDiscord()">Join Now</button>
+  </div>
+</div>
+
+<div id="chatbot">
+  <p>👋 Need help? Join our Discord!</p>
+  <button onclick="joinDiscord()">Join</button>
+</div>
+
+<div class="floating-btn" onclick="toggleChat()">Chat 💬</div>
+
+<footer>
+  <p>© 2026 YAWA Development</p>
+</footer>
+
+<script>
+// SAFE LOADER FIX
+function hideLoader(){
+  const loader=document.getElementById('loader');
+  loader.style.opacity='0';
+  setTimeout(()=>loader.style.display='none',500);
+}
+
+window.addEventListener('DOMContentLoaded', hideLoader);
+setTimeout(hideLoader,3000);
+
+// SCROLL ANIMATION
+const cards=document.querySelectorAll('.card');
+window.addEventListener('scroll',()=>{
+  cards.forEach(card=>{
+    if(card.getBoundingClientRect().top < window.innerHeight-100){
+      card.classList.add('show');
     }
+  });
+});
 
-    /* Loader */
-    #loader {
-      position:fixed;
-      width:100%;
-      height:100%;
-      background:#020617;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      z-index:99999;
+// CHAT
+function toggleChat(){
+  const chat=document.getElementById('chatbot');
+  chat.style.display = chat.style.display==='block'?'none':'block';
+}
+
+// POPUP
+function openPopup(){
+  document.getElementById('popup').style.display='flex';
+}
+
+// DISCORD
+function joinDiscord(){
+  window.open('https://discord.gg/TxCWBEQnJYk','_blank');
+}
+
+// PARTICLES SAFE
+if(window.particlesJS){
+  particlesJS('particles-js',{
+    particles:{
+      number:{value:60},
+      size:{value:3},
+      move:{speed:1},
+      line_linked:{enable:true}
     }
+  });
+}
+</script>
 
-    .spinner {
-      border:5px solid #1e293b;
-      border-top:5px solid #38bdf8;
-      border-radius:50%;
-      width:60px;
-      height:60px;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    #particles-js {
-      position:fixed;
-      width:100%;
-      height:100%;
-      z-index:-1;
-    }
-
-    header {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:20px 40px;
-      background: rgba(2,6,23,0.7);
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top:0;
-      z-index:1000;
-    }
-
-    header h1 { color:#38bdf8; }
-
-    nav a {
-      margin-left:20px;
-      text-decoration:none;
-      color:white;
-      font-weight:500;
-    }
-
-    nav a:hover { color:#38bdf8; }
-
-    .hero {
-      text-align:center;
-      padding:120px 20px;
-    }
-
-    button {
-      padding:14px 30px;
-      border:none;
-      background:#38bdf8;
-      color:black;
-      border-radius:30px;
-      cursor:pointer;
-    }
-
-    .services {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:25px;
-      padding:60px 40px;
-    }
-
-    .card {
-      background: rgba(30,41,59,0.5);
-      padding:25px;
-      border-radius:15px;
-      opacity:0;
-      transform: translateY(40px);
-      transition:0.4s;
-    }
-
-    .card.show {
-      opacity:1;
+</body>
+</html>      opacity:1;
       transform: translateY(0);
     }
 
