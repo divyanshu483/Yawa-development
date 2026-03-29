@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>YAWA Development</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -16,6 +16,8 @@ body{
   background:#020617;
   color:white;
   overflow-x:hidden;
+  position:relative;
+  z-index:1;
 }
 
 /* Loader */
@@ -43,11 +45,13 @@ body{
   to{transform:rotate(360deg);}
 }
 
+/* Particles FIX */
 #particles-js{
   position:fixed;
   width:100%;
   height:100%;
-  z-index:-1;
+  z-index:0;
+  pointer-events:none;
 }
 
 /* Header */
@@ -258,11 +262,11 @@ footer{
 </footer>
 
 <script>
-// SAFE LOADER FIX
+// LOADER FIX (removes completely)
 function hideLoader(){
   const loader=document.getElementById('loader');
   loader.style.opacity='0';
-  setTimeout(()=>loader.style.display='none',500);
+  setTimeout(()=>loader.remove(),500);
 }
 
 window.addEventListener('DOMContentLoaded', hideLoader);
@@ -294,8 +298,8 @@ function joinDiscord(){
   window.open('https://discord.gg/TxCWBEQnJYk','_blank');
 }
 
-// PARTICLES SAFE
-if(window.particlesJS){
+// PARTICLES (disabled on mobile for performance)
+if(window.innerWidth > 768 && window.particlesJS){
   particlesJS('particles-js',{
     particles:{
       number:{value:60},
@@ -308,135 +312,4 @@ if(window.particlesJS){
 </script>
 
 </body>
-</html>      opacity:1;
-      transform: translateY(0);
-    }
-
-    /* About Section */
-    .about {
-      padding:80px 40px;
-      text-align:center;
-    }
-
-    .about p {
-      max-width:700px;
-      margin:auto;
-      opacity:0.8;
-    }
-
-    .floating-btn {
-      position:fixed;
-      bottom:20px;
-      right:20px;
-      background:#38bdf8;
-      color:black;
-      padding:15px 20px;
-      border-radius:50px;
-      cursor:pointer;
-    }
-
-    /* Chatbot */
-    #chatbot {
-      position:fixed;
-      bottom:90px;
-      right:20px;
-      width:260px;
-      background:#1e293b;
-      border-radius:10px;
-      padding:15px;
-      display:none;
-    }
-
-    #chatbot button {
-      margin-top:10px;
-      width:100%;
-    }
-
-    footer {
-      text-align:center;
-      padding:20px;
-      background:#020617;
-      opacity:0.7;
-    }
-
-  </style>
-</head>
-<body>
-
-<div id="loader"><div class="spinner"></div></div>
-<div id="particles-js"></div>
-
-<header>
-  <h1>YAWA Development</h1>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#services">Services</a>
-    <a href="#about">About</a>
-  </nav>
-</header>
-
-<section class="hero">
-  <h2>Build. Launch. Grow.</h2>
-  <p>Websites • Minecraft Servers • VPS • Domains</p>
-  <button onclick="window.location.href='https://discord.gg/TxCWBEQnJYk'">Join Discord</button>
-</section>
-
-<section id="services" class="services">
-  <div class="card"><h3>🌐 Website</h3><p>₹250 - ₹1000</p></div>
-  <div class="card"><h3>🎮 Minecraft</h3><p>₹300</p></div>
-  <div class="card"><h3>⚙️ VPS</h3><p>₹300</p></div>
-  <div class="card"><h3>🌍 Domain</h3><p>₹75/year</p></div>
-</section>
-
-<section id="about" class="about">
-  <h2>About YAWA Development</h2>
-  <p>YAWA Development provides affordable and high-quality digital services including websites, Minecraft server setups, VPS configuration, and domain solutions. Our goal is to deliver fast, reliable, and professional services for everyone.</p>
-</section>
-
-<div id="chatbot">
-  <p>👋 Need help? Join our Discord!</p>
-  <button onclick="window.location.href='https://discord.gg/TxCWBEQnJYk'">Join Now</button>
-</div>
-
-<div class="floating-btn" onclick="toggleChat()">Chat 💬</div>
-
-<footer>
-  <p>© 2026 YAWA Development. All rights reserved.</p>
-</footer>
-
-<script>
-// Loader fix
-window.addEventListener('load', () => {
-  document.getElementById('loader').style.display = 'none';
-});
-
-// Scroll animation fix
-const cards = document.querySelectorAll('.card');
-window.addEventListener('scroll', () => {
-  cards.forEach(card => {
-    const rect = card.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 100) {
-      card.classList.add('show');
-    }
-  });
-});
-
-// Chat toggle
-function toggleChat() {
-  const chat = document.getElementById('chatbot');
-  chat.style.display = chat.style.display === 'block' ? 'none' : 'block';
-}
-
-// Particles
-particlesJS('particles-js', {
-  particles: {
-    number: { value: 60 },
-    size: { value: 3 },
-    move: { speed: 1 },
-    line_linked: { enable: true }
-  }
-});
-</script>
-
-</body>
-</html>
+      </html>
